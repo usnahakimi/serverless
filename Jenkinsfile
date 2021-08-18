@@ -9,8 +9,9 @@ pipeline {
         stage('deploy') {
             steps {
                 withAWS(region:'eu-west-2',credentials:'iam-credentials') {
-                s3Delete(bucket: 'usna-s3', path:'**/*')
-                s3Upload(bucket: 'usna-s3', workingDir:'build', includePathPattern:'**/*');
+                    s3Delete(bucket: 'usna-s3', path:'**/*')
+                    s3Upload(bucket: 'usna-s3', workingDir:'build', includePathPattern:'**/*');
+                }
             }
         }
     }
