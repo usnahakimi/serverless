@@ -1,19 +1,16 @@
 pipeline {
-    agent any
+    agent { docker { image 'python:3.7.2' } }
     stages {
-        stage('build') {
-            steps {
-                echo 'this is the building stage'
-            }
-        }
         stage('test') {
             steps {
-                echo 'this is the testing stage'
+                sh 'python sample_unit_test.py'
             }
         }
         stage('deploy') {
-            steps {
-                echo 'this is the deployment stage'
+          steps {
+            withAWS(region:'eu-west-2',credentials:'iam-credentials') {
+              s3Delete(bucket: 'usna-s3', path:'**/*')
+              s3Upload(bucket: 'usna-s3', workingDir:'build', includePathPattern:'**/*');
             }
         }
     }
