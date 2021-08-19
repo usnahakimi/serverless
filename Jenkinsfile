@@ -14,7 +14,9 @@ pipeline {
         stage('Deploy to S3') {
             steps {
                 withAWS(region:'eu-west-2', credentials:'aws-credentials') {
-                    s3Upload(file: 'index.html', bucket: 'usna-s3', path: 'index.html');
+                    // s3Upload(file: 'index.html', bucket: 'usna-s3', path: 'index.html');
+                    sh "aws s3 ls"
+                    sh "aws s3 cp www/index.html s3://usna-s3"
                 }
             }
         }
