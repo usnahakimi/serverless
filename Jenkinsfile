@@ -12,7 +12,7 @@ pipeline {
                     s3Upload( 
                         bucket: 'usna-s3', 
                         path: "", // no trailing slash 
-                        includePathPattern:'**/*.html'
+                        includePathPattern: "**/*.html",
                         workingDir: "www" 
                     )
                 }
