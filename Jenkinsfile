@@ -7,13 +7,13 @@ pipeline {
         }
         }
         stage('Deploy') {
-            when {
-              expression {
-                currentBuild.result == null || currentBuild.result == 'SUCCESS' 
-              }
-            }
             steps {
-                echo 'Application deployed'
+                sh "tidy -q -e *.html"
+            }
+        }
+        stage('Deploy to S3') {
+            withAWS(region:'eu-west-2', credentials:'aws-credentials') {
+                s3Upload(file: 'index.html', bucket: 'usna-s3', path: 'index.html');
             }
         }
     }
