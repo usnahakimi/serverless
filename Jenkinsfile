@@ -16,9 +16,9 @@ pipeline {
                 withAWS(region:'eu-west-2', credentials:'aws-credentials') {
                     s3Upload( 
                         bucket: 'usna-s3', 
-                        path: "www/", // no trailing slash 
+                        path: "", // no trailing slash 
                         file: "index.html", 
-                        workingDir: "serverless" 
+                        workingDir: "www" 
                     )
                 }
             }
