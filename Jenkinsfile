@@ -12,8 +12,10 @@ pipeline {
             }
         }
         stage('Deploy to S3') {
-            withAWS(region:'eu-west-2', credentials:'aws-credentials') {
-                s3Upload(file: 'index.html', bucket: 'usna-s3', path: 'index.html');
+            steps {
+                withAWS(region:'eu-west-2', credentials:'aws-credentials') {
+                    s3Upload(file: 'index.html', bucket: 'usna-s3', path: 'index.html');
+                }
             }
         }
     }
